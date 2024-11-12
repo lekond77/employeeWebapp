@@ -23,9 +23,6 @@
 			padding-top: 50px;
 		}
 
-		#navbarSupportedContent {
-			margin-top: 10px;
-		}
 	</style>
 </head>
 
@@ -44,6 +41,9 @@
 					Bonjour, <span th:text="${session.username}"></span>
 				</span>
 				<a th:if="${session.username == null}" href="/login">Login</a>
+			</button>
+			<button class="btn btn-danger " style="margin:10px 0 0 30px;" th:if="${session.username != null}">
+				<a  href="/logout" style="color: azure;">Logout</a>
 			</button>
 
 		</div>

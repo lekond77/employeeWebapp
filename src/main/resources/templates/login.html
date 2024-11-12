@@ -27,11 +27,24 @@
 
 <body>
 
-	<nav class="navbar navbar-inverse navbar-fixed-top">
+	<nav class="navbar navbar-fixed-top navbar-inverse">
 		<div class="container">
-			<div class="navbar-header">
-				<a class="navbar-brand" href=".">Système de gestion des employées</a>
-			</div>
+			<a class="navbar-brand" href=".">Système de gestion des employés</a>
+
+			<a class="navbar-brand" href="/employees" th:if="${session.username != null}"
+				style="margin-left: 30px;">Employees</a>
+
+
+			<button class="btn btn-outline-dark" style="margin: 10px 0 0 30px;">
+				<span th:if="${session.username != null}">
+					Bonjour, <span th:text="${session.username}"></span>
+				</span>
+				<a th:if="${session.username == null}" href="/login">Login</a>
+			</button>
+			<button class="btn btn-danger " style="margin:10px 0 0 30px;" th:if="${session.username != null}">
+				<a href="/logout" style="color: azure;">Logout</a>
+			</button>
+
 		</div>
 	</nav>
 
@@ -52,7 +65,7 @@
 		</form>
 
 		<div th:if="${error != null}" class="mt-4">
-			<p style="color:red;" >Erreur: <span th:text="${error}"></span></p>
+			<p style="color:red;">Erreur: <span th:text="${error}"></span></p>
 		</div>
 	</div>
 </body>

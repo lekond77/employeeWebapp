@@ -1,39 +1,50 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhml"
-	xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhml" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-	crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+		integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-<title>Employee Web Application</title>
+	<title>Employee Web Application</title>
 
-<style>
-	body {
-		padding-top: 50px;
-	}
-	.special {
-		padding-top:50px;
-	}
-</style>
+	<style>
+		body {
+			padding-top: 50px;
+		}
+
+		.special {
+			padding-top: 50px;
+		}
+	</style>
 </head>
+
 <body>
 
-	<nav class="navbar navbar-inverse navbar-fixed-top">
+	<nav class="navbar navbar-fixed-top navbar-inverse">
 		<div class="container">
-			<div class="navbar-header">
-				<a class="navbar-brand" href=".">Système de gestion des employées</a>
-			</div>
+			<a class="navbar-brand" href=".">Système de gestion des employés</a>
+
+			<a class="navbar-brand" href="/employees" th:if="${session.username != null}"
+				style="margin-left: 30px;">Employees</a>
+
+
+			<button class="btn btn-outline-dark" style="margin: 10px 0 0 30px;">
+				<span th:if="${session.username != null}">
+					Bonjour, <span th:text="${session.username}"></span>
+				</span>
+				<a th:if="${session.username == null}" href="/login">Login</a>
+			</button>
+			<button class="btn btn-danger " style="margin:10px 0 0 30px;" th:if="${session.username != null}">
+				<a href="/logout" style="color: azure;">Logout</a>
+			</button>
+
 		</div>
 	</nav>
 
@@ -57,8 +68,10 @@
 						<td><span th:text="${employee.firstName}"> Prénom </span></td>
 						<td><span th:text="${employee.lastName}"> Nom </span></td>
 						<td>
-							<a th:href="@{/updateEmployee/{id}(id=${employee.id})}"><button class="btn btn-info">Modifier</button></a>
-							<a th:href="@{/deleteEmployee/{id}(id=${employee.id})}"><button class="btn btn-danger">Supprimer</button></a>						
+							<a th:href="@{/updateEmployee/{id}(id=${employee.id})}"><button
+									class="btn btn-info">Modifier</button></a>
+							<a th:href="@{/deleteEmployee/{id}(id=${employee.id})}"><button
+									class="btn btn-danger">Supprimer</button></a>
 						</td>
 					</tr>
 				</tbody>
@@ -68,11 +81,10 @@
 
 	</div>
 
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 		crossorigin="anonymous"></script>
 </body>
+
 </html>
