@@ -9,10 +9,7 @@ public class GlobalExceptionHander {
 
 	@ExceptionHandler(TokenNotFoundException.class)
 	public ModelAndView handleTokenNotFoundException(TokenNotFoundException ex) {
-
 		ModelAndView modelAndView = new ModelAndView("redirect:/login");
-
-		modelAndView.addObject("error", ex.getMessage());
 		return modelAndView;
 	}
 
