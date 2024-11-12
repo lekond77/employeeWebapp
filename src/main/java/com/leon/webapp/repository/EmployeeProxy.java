@@ -4,8 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import com.leon.webapp.CustomPropreties;
@@ -34,7 +37,7 @@ public class EmployeeProxy {
 					});
 
 			return response.getBody();
-		} catch (Exception e) {
+		} catch (HttpClientErrorException e) {
 			return null;
 
 		}
@@ -53,7 +56,8 @@ public class EmployeeProxy {
 					Employee.class);
 
 			return response.getBody();
-		} catch (Exception e) {
+
+		} catch (HttpClientErrorException e) {
 			return null;
 		}
 
@@ -64,11 +68,16 @@ public class EmployeeProxy {
 		String baseApiUrl = props.getApiUrl();
 		String getEmpoyeeUrl = baseApiUrl + "/employee/" + id;
 
-		RestTemplate restTemplate = new RestTemplate();
+		try {
+			RestTemplate restTemplate = new RestTemplate();
 
-		ResponseEntity<Employee> response = restTemplate.exchange(getEmpoyeeUrl, HttpMethod.GET, null, Employee.class);
+			ResponseEntity<Employee> response = restTemplate.exchange(getEmpoyeeUrl, HttpMethod.GET, null,
+					Employee.class);
 
-		return response.getBody();
+			return response.getBody();
+		} catch (HttpClientErrorException e) {
+			return null;
+		}
 	}
 
 	public void deleteEmployee(int id) {
@@ -76,7 +85,11 @@ public class EmployeeProxy {
 		String baseApiUrl = props.getApiUrl();
 		String deleteEmpoyeeUrl = baseApiUrl + "/employee/" + id;
 
-		restTemplate.exchange(deleteEmpoyeeUrl, HttpMethod.DELETE, null, Employee.class);
+		try {
+			restTemplate.exchange(deleteEmpoyeeUrl, HttpMethod.DELETE, null, Employee.class);
+		} catch (HttpClientErrorException e) {
+
+		}
 
 	}
 
@@ -84,12 +97,17 @@ public class EmployeeProxy {
 		String baseApiUrl = props.getApiUrl();
 		String updateEmpoyeeUrl = baseApiUrl + "/employee/" + employee.getId();
 
-		HttpEntity<Employee> request = new HttpEntity<Employee>(employee);
+		try {
+			HttpEntity<Employee> request = new HttpEntity<Employee>(employee);
 
-		ResponseEntity<Employee> response = restTemplate.exchange(updateEmpoyeeUrl, HttpMethod.PUT, request,
-				Employee.class);
+			ResponseEntity<Employee> response = restTemplate.exchange(updateEmpoyeeUrl, HttpMethod.PUT, request,
+					Employee.class);
+			return response.getBody();
 
-		return response.getBody();
+		} catch (HttpClientErrorException e) {
+			return null;
+		}
+
 	}
 
 }

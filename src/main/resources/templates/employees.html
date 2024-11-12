@@ -50,7 +50,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:if="${employees.empty}">
+					<tr th:if="${employees == null or employees.empty}">
 						<td colspan="3">Aucun employée en base de données</td>
 					</tr>
 					<tr th:each="employee: ${employees}">
