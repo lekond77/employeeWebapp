@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+		integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+	<title>Employee Web Application</title>
+
+	<style>
+		body {
+			padding-top: 50px;
+		}
+
+		.special {
+			padding-top: 50px;
+		}
+	</style>
+</head>
+
+<body>
+
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href=".">Système de gestion des employées</a>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container special">
+		<h1>Connexion</h1>
+
+		<form action="/login" method="post" class="mb-4">
+			<div class="mb-3">
+				<label for="username" class="form-label">Email address</label>
+				<input type="email" class="form-control" id="username" name="username" required
+					aria-describedby="emailHelp">
+			</div>
+			<div class="mb-3">
+				<label for="password" class="form-label">Password</label>
+				<input type="password" id="password" name="password" required class="form-control">
+			</div>
+			<button type="submit" class="btn btn-primary ">Submit</button>
+		</form>
+
+		<div th:if="${error != null}" class="mt-4">
+			<p style="color:red;" >Erreur: <span th:text="${error}"></span></p>
+		</div>
+	</div>
+</body>
+
+</html>
